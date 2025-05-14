@@ -1,3 +1,11 @@
+server:
+  port: 8083
+
 spring:
   application:
     name: pass-web
+  datasource:
+    url: ${LOCAL_DB_MYSQL_URL}
+    username: ${LOCAL_DB_MYSQL_USERNAME}
+    password : ${LOCAL_DB_MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
