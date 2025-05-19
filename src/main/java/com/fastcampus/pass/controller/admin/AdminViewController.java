@@ -2,15 +2,16 @@ package com.fastcampus.pass.controller.admin;
 
 import com.fastcampus.pass.service.packaze.PackageService;
 import com.fastcampus.pass.service.pass.BulkPassService;
+import com.fastcampus.pass.service.statistics.StatisticsService;
 import com.fastcampus.pass.service.user.UserGroupMappingService;
+import com.fastcampus.pass.util.LocalDateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/admin")
@@ -22,11 +23,29 @@ public class AdminViewController {
   private PackageService packageService;
   @Autowired
   private UserGroupMappingService userGroupMappingService;
+  @Autowired
+  private StatisticsService statisticsService;
 
-  public AdminViewController(BulkPassService bulkPassService, PackageService packageService, UserGroupMappingService userGroupMappingService) {
+  public AdminViewController(BulkPassService bulkPassService, PackageService packageService, UserGroupMappingService userGroupMappingService, StatisticsService statisticsService) {
     this.bulkPassService = bulkPassService;
     this.packageService = packageService;
     this.userGroupMappingService = userGroupMappingService;
+    this.statisticsService = statisticsService;
+  }
+
+  @GetMapping
+  public ModelAndView home(ModelAndView modelAndView, @RequestParam(value = "to", required = false) String toString) {
+    LocalDateTime to = LocalDateTime.now();
+
+    if(toString != null && !toString.isEmpty()) {
+        to = LocalDateTimeUtils.parse(toString);
+    }
+
+    // chartData 를 조회합니다.(라벨, 출석횟수, 취소횟수)
+    modelAndView.addObject("chartData", statisticsService.makeChartData(to));
+    modelAndView.setViewName("/admin/index");
+
+    return modelAndView;
   }
 
   @GetMapping("/bulk-pass")
