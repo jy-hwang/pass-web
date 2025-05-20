@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace="/admin/header :: header"></th:block>
+<th:block th:replace="/admin/fragments/header :: header"></th:block>
 <body id="page-top">
 <!-- Page Wrapper -->
 <div id="wrapper">
-  <th:block th:replace="/admin/sidebar :: sidebar"></th:block>
+  <th:block th:replace="/admin/fragments/sidebar :: sidebar"></th:block>
   <!-- Content Wrapper -->
   <div class="d-flex flex-column" id="content-wrapper">
     <!-- Main Content -->
     <div id="content">
-      <th:block th:replace="/admin/topbar :: topbar"></th:block>
+      <th:block th:replace="/admin/fragments/topbar :: topbar"></th:block>
       <!-- Begin Page Content -->
       <div class="container-fluid">
         <!-- Page Heading -->
@@ -57,7 +57,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">이용권 일괄 지급 등록</h6>
               </div>
               <div class="card-body">
-                <form action="#" method="post" th:action="@{/admin/bulk-pass}" th:object="${request}">
+                <form action="#" method="post" th:action="@{/admin/fragments/bulk-pass}" th:object="${request}">
                   <div class="small mb-1">패키지</div>
                   <select class="form-control mb-3" th:field="*{packageSeq}">
                     <option value="">등록된 패키지를 선택해주세요.</option>
@@ -102,13 +102,13 @@
 
 </div>
 <!-- End of Main Content -->
-<th:block th:replace="/admin/footer :: footer"></th:block>
+<th:block th:replace="/admin/fragments/footer :: footer"></th:block>
 </div>
 <!-- End of Content Wrapper -->
 
 </div>
 <!-- End of Page Wrapper -->
-<th:block th:replace="/admin/script :: script"></th:block>
+<th:block th:replace="/admin/fragments/script :: script"></th:block>
 
 </body>
 </html>
